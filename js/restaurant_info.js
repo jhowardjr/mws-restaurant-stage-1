@@ -29,11 +29,13 @@ fetchRestaurantFromURL = (callback) => {
     return;
   }
   const id = getParameterByName('id');
+
   if (!id) { // no id found in URL
     error = 'No restaurant id in URL'
     callback(error, null);
   } else {
     DBHelper.fetchRestaurantById(id, (error, restaurant) => {
+
       self.restaurant = restaurant;
       if (!restaurant) {
         console.error(error);
@@ -58,6 +60,39 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img'
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
+
+  const viewportMap = [{
+      media: '(max-width: 320px)',
+      suffix: '_280.jpg',
+      size: '280w',
+      slot: '280px'
+    },
+    {
+      media: '(min-width: 375px)',
+      suffix: '_385.jpg',
+      size: '385w',
+      slot: '385px'
+    },
+    {
+      media: '(min-width: 768px)',
+      suffix: '_640.jpg',
+      size: '640w',
+      slot: '432px'
+    }
+  ];
+
+  let srcsets = [];
+  let sizes = [];
+
+  for (const viewport of viewportMap) {
+    const size = DBHelper.sizeAttribute(viewport.media, viewport.slot);
+    const srcset = DBHelper.srcsetUrlForRestaurant(restaurant, viewport.suffix, viewport.size);
+    srcsets.push(srcset)
+    sizes.push(size)
+  }
+
+  image.srcset = srcsets.join();
+  image.sizes = sizes.join();
 
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
@@ -139,7 +174,7 @@ createReviewHTML = (review) => {
 /**
  * Add restaurant name to the breadcrumb navigation menu
  */
-fillBreadcrumb = (restaurant=self.restaurant) => {
+fillBreadcrumb = (restaurant = self.restaurant) => {
   const breadcrumb = document.getElementById('breadcrumb');
   const li = document.createElement('li');
   li.innerHTML = restaurant.name;

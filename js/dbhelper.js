@@ -154,10 +154,17 @@ class DBHelper {
   }
 
   /**
-   * Restaurant source URL.
+   * Restaurant srcset URL.
    */
-  static sourceUrlForRestaurant(restaurant, suffix) {
-    return (`/img/scaled/${restaurant.id}${suffix}`);
+  static srcsetUrlForRestaurant(restaurant, suffix, size) {
+    return (`/img/scaled/${restaurant.id}${suffix} ${size}`);
+  }
+
+  /**
+   * Restaurant size attribute.
+   */
+  static sizeAttribute(media, slot) {
+    return (`${media} ${slot}`);
   }
 
   /**
@@ -169,8 +176,8 @@ class DBHelper {
       title: restaurant.name,
       url: DBHelper.urlForRestaurant(restaurant),
       map: map,
-      animation: google.maps.Animation.DROP}
-    );
+      animation: google.maps.Animation.DROP
+    });
     return marker;
   }
 

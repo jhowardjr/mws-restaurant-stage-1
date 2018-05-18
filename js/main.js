@@ -137,31 +137,55 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
  */
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
-
-  const picture = document.createElement('picture');
-  picture.className = 'restaurant-img';
-
   const image = document.createElement('img');
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
-  image.style='width: 100%';
-  
-  const viewportMap = [
-    {media: '(max-width: 320px)', suffix: '_280.jpg'},
-    {media: '(min-width: 320px)', suffix: '_335.jpg'},
-    {media: '(min-width: 375px)', suffix: '_385.jpg'},
-    {media: '(min-width: 425px)', suffix: '_432.jpg'},
-    {media: '(min-width: 768px)', suffix: '_640.jpg'}
+  image.className = 'restaurant-img';
+
+  const viewportMap = [{
+      media: '(max-width: 320px)',
+      suffix: '_280.jpg',
+      size: '280w',
+      slot: '236px'
+    },
+    {
+      media: '(min-width: 320px)',
+      suffix: '_335.jpg',
+      size: '335w',
+      slot: '291px'
+    },
+    {
+      media: '(min-width: 375px)',
+      suffix: '_385.jpg',
+      size: '385w',
+      slot: '341px'
+    },
+    {
+      media: '(min-width: 425px)',
+      suffix: '_432.jpg',
+      size: '432w',
+      slot: '290px'
+    },
+    {
+      media: '(min-width: 768px)',
+      suffix: '_640.jpg',
+      size: '640w',
+      slot: '290px'
+    }
   ];
 
-  for(const viewport of viewportMap) {
-    const source = document.createElement('source');
-    source.srcset = DBHelper.sourceUrlForRestaurant(restaurant, viewport.suffix);
-    source.media = viewport.media;
-    picture.append(source); 
+  let srcsets = [];
+  let sizes = [];
+
+  for (const viewport of viewportMap) {
+    const size = DBHelper.sizeAttribute(viewport.media, viewport.slot);
+    const srcset = DBHelper.srcsetUrlForRestaurant(restaurant, viewport.suffix, viewport.size);
+    srcsets.push(srcset)
+    sizes.push(size)
   }
-  
-  picture.append(image);
-  li.append(picture);
+
+  image.srcset = srcsets.join();
+  image.sizes = sizes.join();
+  li.append(image);
 
   const name = document.createElement('h1');
   name.innerHTML = restaurant.name;
