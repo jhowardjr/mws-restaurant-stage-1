@@ -74,7 +74,13 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
       slot: '385px'
     },
     {
-      media: '(min-width: 768px)',
+      media: '((min-width: 425px) and (max-width: 767px))',
+      suffix: '_640.jpg',
+      size: '640w',
+      slot: ''
+    },
+    {
+      media: '(min-width: 425px)',
       suffix: '_640.jpg',
       size: '640w',
       slot: '432px'
@@ -93,6 +99,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 
   image.srcset = srcsets.join();
   image.sizes = sizes.join();
+  image.alt = restaurant.alt;
 
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
