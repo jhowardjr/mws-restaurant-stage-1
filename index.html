@@ -17,27 +17,33 @@
       </h1>
     </nav>
     <div class="filter-options">
-      <h2>Filter Results</h2>
-      <label class="nav-labels" for="neighborhoods-select">
-        Neighborhoods
-      </label>
-      <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
-        <option value="all">All Neighborhoods</option>
-      </select>
-
-      <label class="nav-labels" for="cuisines-select">
-        Cuisines
-      </label>
-      <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
-        <option value="all">All Cuisines</option>
-      </select>
-
+      <h2>Filter Restaurants</h2>
+      <div class="filter-options-select">
+        <div>
+          <div id="neighborhoods-select-label" hidden>Select a Neighborhood</div>
+          <label class="nav-labels" for="neighborhoods-select" aria-labelledby="neighborhoods-select-label">
+            Neighborhood
+          </label>
+          <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
+            <option value="all">All Neighborhoods</option>
+          </select>
+        </div>
+        <div>
+          <div id="cuisines-select-label" hidden>Select a Cuisine</div>
+          <label class="nav-labels" for="cuisines-select" aria-labelledby="cuisines-select-label">
+            Cuisines
+          </label>
+          <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
+            <option value="all">All Cuisines</option>
+          </select>
+        </div>
+      </div>
     </div>
   </header>
 
   <main id="maincontent">
     <section id="map-container">
-      <div id="map" aria-hidden="true"></div>
+      <div id="map" aria-hidden="true" tabindex="-1"></div>
     </section>
     <section id="restaurant-main-container">
       <ul id="restaurants-list"></ul>

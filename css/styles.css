@@ -107,6 +107,7 @@ nav {
 
 nav h1 {
   margin: auto;
+  padding: 20px;
 }
 
 nav h1 a {
@@ -155,6 +156,10 @@ nav h1 a {
 
 .nav-labels {
   display: block;
+}
+
+.nav-labels span {
+  display: none;
 }
 
 /* ====================== Map ====================== */
@@ -360,6 +365,12 @@ nav h1 a {
   }
   .nav-labels {
     display: inline;
+  }
+}
+
+@media only screen and (min-width: 483px) {
+  .filter-options-select {
+    display: flex;
   }
 }
 

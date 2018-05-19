@@ -117,6 +117,11 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
  */
 fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => {
   const hours = document.getElementById('restaurant-hours');
+  const caption = document.createElement('caption');
+  caption.innerHTML = `${self.restaurant.name}'s Hours of Operation`;
+
+  hours.appendChild(caption)
+
   for (let key in operatingHours) {
     const row = document.createElement('tr');
 

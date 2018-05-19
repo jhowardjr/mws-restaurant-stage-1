@@ -12,13 +12,13 @@
     },
     "cuisine_type": "Asian",
     "operating_hours": {
-      "Monday": "5:30 pm - 11:00 pm",
-      "Tuesday": "5:30 pm - 12:00 am",
-      "Wednesday": "5:30 pm - 12:00 am",
-      "Thursday": "5:30 pm - 12:00 am",
-      "Friday": "5:30 pm - 12:00 am",
-      "Saturday": "12:00 pm - 4:00 pm, 5:30 pm - 12:00 am",
-      "Sunday": "12:00 pm - 4:00 pm, 5:30 pm - 11:00 pm"
+      "Monday": "5:30 P.M. to 11 P.M.",
+      "Tuesday": "5:30 P.M. to 12 A.M.",
+      "Wednesday": "5:30 P.M. to 12 A.M.",
+      "Thursday": "5:30 P.M. to 12 A.M.",
+      "Friday": "5:30 P.M. to 12 A.M.",
+      "Saturday": "12 P.M. to 4 pm, 5:30 P.M. to 12 A.M.",
+      "Sunday": "12 P.M. to 4 pm, 5:30 P.M. to 11 P.M."
     },
     "reviews": [{
         "name": "Steve",
@@ -52,19 +52,19 @@
     },
     "cuisine_type": "Pizza",
     "operating_hours": {
-      "Monday": "5:30 pm - 11:00 pm",
-      "Tuesday": "5:30 pm - 11:00 pm",
-      "Wednesday": "5:30 pm - 11:00 pm",
-      "Thursday": "5:30 pm - 11:00 pm",
-      "Friday": "5:30 pm - 11:00 pm",
-      "Saturday": "5:00 pm - 11:30 pm",
-      "Sunday": "12:00 pm - 3:00 pm, 5:00 pm - 11:00 pm"
+      "Monday": "5:30 P.M. to 11 P.M.",
+      "Tuesday": "5:30 P.M. to 11 P.M.",
+      "Wednesday": "5:30 P.M. to 11 P.M.",
+      "Thursday": "5:30 P.M. to 11 P.M.",
+      "Friday": "5:30 P.M. to 11 P.M.",
+      "Saturday": "5 P.M. to 11:30 P.M.",
+      "Sunday": "12 P.M. to 3 pm, 5 P.M. to 11 P.M."
     },
     "reviews": [{
         "name": "Steph",
         "date": "October 26, 2016",
         "rating": 4,
-        "comments": "Five star food, two star atmosphere. I would definitely get takeout from this place - but dont think I have the energy to deal with the hipster ridiculousness again. By the time we left the wait was two hours long."
+        "comments": "Five star food, two star atmosphere. I would definitely get takeout from this place to but dont think I have the energy to deal with the hipster ridiculousness again. By the time we left the wait was two hours long."
       },
       {
         "name": "Steve",
@@ -92,13 +92,13 @@
     },
     "cuisine_type": "Asian",
     "operating_hours": {
-      "Monday": "11:30 am - 2:00 am",
-      "Tuesday": "11:30 am - 2:00 am",
-      "Wednesday": "11:30 am - 2:00 am",
-      "Thursday": "11:30 am - 2:00 am",
-      "Friday": "11:30 am - 6:00 am",
-      "Saturday": "11:30 am - 6:00 am",
-      "Sunday": "11:30 am - 2:00 am"
+      "Monday": "11:30 A.M. to 2 A.M.",
+      "Tuesday": "11:30 A.M. to 2 A.M.",
+      "Wednesday": "11:30 A.M. to 2 A.M.",
+      "Thursday": "11:30 A.M. to 2 A.M.",
+      "Friday": "11:30 A.M. to 6 A.M.",
+      "Saturday": "11:30 A.M. to 6 A.M.",
+      "Sunday": "11:30 A.M. to 2 A.M."
     },
     "reviews": [{
         "name": "Steve",
@@ -132,13 +132,13 @@
     },
     "cuisine_type": "American",
     "operating_hours": {
-      "Monday": "8:00 am - 10:30 pm",
-      "Tuesday": "8:00 am - 10:30 pm",
-      "Wednesday": "8:00 am - 10:30 pm",
-      "Thursday": "8:00 am - 2:30 am",
-      "Friday": "8:00 am - Sat",
+      "Monday": "8 A.M. to 10:30 P.M.",
+      "Tuesday": "8 A.M. to 10:30 P.M.",
+      "Wednesday": "8 A.M. to 10:30 P.M.",
+      "Thursday": "8 A.M. to 2:30 A.M.",
+      "Friday": "8 A.M. to Sat",
       "Saturday": "Open 24 hours",
-      "Sunday": "Sat - 10:30 pm"
+      "Sunday": "Sat to 10:30 P.M."
     },
     "reviews": [{
         "name": "Steve",
@@ -172,13 +172,13 @@
     },
     "cuisine_type": "Pizza",
     "operating_hours": {
-      "Monday": "11:00 am - 12:00 am",
-      "Tuesday": "11:00 am - 12:00 am",
-      "Wednesday": "11:00 am - 12:00 am",
-      "Thursday": "11:00 am - 12:00 am",
-      "Friday": "11:00 am - 12:00 am",
-      "Saturday": "10:00 am - 12:00 am",
-      "Sunday": "10:00 am - 12:00 am"
+      "Monday": "11 A.M. to 12 A.M.",
+      "Tuesday": "11 A.M. to 12 A.M.",
+      "Wednesday": "11 A.M. to 12 A.M.",
+      "Thursday": "11 A.M. to 12 A.M.",
+      "Friday": "11 A.M. to 12 A.M.",
+      "Saturday": "10 A.M. to 12 A.M.",
+      "Sunday": "10 A.M. to 12 A.M."
     },
     "reviews": [{
         "name": "Steve",
@@ -213,12 +213,12 @@
     "cuisine_type": "American",
     "operating_hours": {
       "Monday": "Closed",
-      "Tuesday": "12:00 pm - 10:00 pm",
-      "Wednesday": "12:00 pm - 10:00 pm",
-      "Thursday": "12:00 pm - 10:00 pm",
-      "Friday": "12:00 pm - 11:00 pm",
-      "Saturday": "12:00 pm - 11:00 pm",
-      "Sunday": "12:00 pm - 9:00 pm"
+      "Tuesday": "12 P.M. to 10 P.M.",
+      "Wednesday": "12 P.M. to 10 P.M.",
+      "Thursday": "12 P.M. to 10 P.M.",
+      "Friday": "12 P.M. to 11 P.M.",
+      "Saturday": "12 P.M. to 11 P.M.",
+      "Sunday": "12 P.M. to 9 P.M."
     },
     "reviews": [{
         "name": "Steve",
@@ -252,13 +252,13 @@
     },
     "cuisine_type": "American",
     "operating_hours": {
-      "Monday": "11:30 am - 10:00 pm",
+      "Monday": "11:30 A.M. to 10 P.M.",
       "Tuesday": "Closed",
-      "Wednesday": "11:30 am - 10:00 pm",
-      "Thursday": "11:30 am - 10:00 pm",
-      "Friday": "11:30 am - 10:00 pm",
-      "Saturday": "11:30 am - 10:00 pm",
-      "Sunday": "11:30 am - 10:00 pm"
+      "Wednesday": "11:30 A.M. to 10 P.M.",
+      "Thursday": "11:30 A.M. to 10 P.M.",
+      "Friday": "11:30 A.M. to 10 P.M.",
+      "Saturday": "11:30 A.M. to 10 P.M.",
+      "Sunday": "11:30 A.M. to 10 P.M."
     },
     "reviews": [{
         "name": "Steve",
@@ -276,7 +276,7 @@
         "name": "Shivi",
         "date": "October 26, 2016",
         "rating": 4,
-        "comments": "Great flavors and very satisfying. Craving a sandwich, I stopped by on a Friday night with a vegetarian friend. Super small location with just a few seats inside. Ambiance is a bit industrial, good is definitely much more sophisticated than the look of the place! Ordered the superiority burger anda side of potato salad. The potato salad was very light and tasted clean ( less mayo, lots of dill and some cucumber) -- refreshing for a humid summer night! Sandwich was surprisingly delicious - it is very small ( funny allusion to a White Castle burger) but it packs a punch! Not only are there layers of flavors ( amazing sauces) but the party itself had a great texture Ahmed flavor-- well done and so wonderful! Will definitely stop by again for an overall amazing burger/sandwich. Staff was super nice and accommodating but not out of the way friendly."
+        "comments": "Great flavors and very satisfying. Craving a sandwich, I stopped by on a Friday night with a vegetarian friend. Super small location with just a few seats inside. Ambiance is a bit industrial, good is definitely much more sophisticated than the look of the place! Ordered the superiority burger anda side of potato salad. The potato salad was very light and tasted clean ( less mayo, lots of dill and some cucumber) -- refreshing for a humid summer night! Sandwich was surprisingly delicious to it is very small ( funny allusion to a White Castle burger) but it packs a punch! Not only are there layers of flavors ( amazing sauces) but the party itself had a great texture Ahmed flavor-- well done and so wonderful! Will definitely stop by again for an overall amazing burger/sandwich. Staff was super nice and accommodating but not out of the way friendly."
       }
     ]
   }, {
@@ -292,13 +292,13 @@
     },
     "cuisine_type": "American",
     "operating_hours": {
-      "Monday": "11:30 am - 3:00 pm, 5:30 pm - 11:00 pm",
-      "Tuesday": "11:30 am - 3:00 pm, 5:30 pm - 11:00 pm",
-      "Wednesday": "11:30 am - 3:00 pm, 5:30 pm - 11:00 pm",
-      "Thursday": "11:30 am - 3:00 pm, 5:30 pm - 11:00 pm",
-      "Friday": "11:30 am - 3:00 pm, 5:30 pm - 11:30 pm",
-      "Saturday": "10:00 am - 3:00 pm, 5:30 pm - 11:30 pm",
-      "Sunday": "10:00 am - 3:00 pm, 5:30 pm - 11:00 pm"
+      "Monday": "11:30 A.M. to 3 pm, 5:30 P.M. to 11 P.M.",
+      "Tuesday": "11:30 A.M. to 3 pm, 5:30 P.M. to 11 P.M.",
+      "Wednesday": "11:30 A.M. to 3 pm, 5:30 P.M. to 11 P.M.",
+      "Thursday": "11:30 A.M. to 3 pm, 5:30 P.M. to 11 P.M.",
+      "Friday": "11:30 A.M. to 3 pm, 5:30 P.M. to 11:30 P.M.",
+      "Saturday": "10 A.M. to 3 pm, 5:30 P.M. to 11:30 P.M.",
+      "Sunday": "10 A.M. to 3 pm, 5:30 P.M. to 11 P.M."
     },
     "reviews": [{
         "name": "Steve",
@@ -332,13 +332,13 @@
     },
     "cuisine_type": "Asian",
     "operating_hours": {
-      "Monday": "5:00 pm - 10:00 pm",
-      "Tuesday": "5:00 pm - 10:00 pm",
-      "Wednesday": "5:00 pm - 10:00 pm",
-      "Thursday": "5:00 pm - 10:00 pm",
-      "Friday": "5:00 pm - 11:00 pm",
-      "Saturday": "5:00 pm - 11:00 pm",
-      "Sunday": "5:00 pm - 10:00 pm"
+      "Monday": "5 P.M. to 10 P.M.",
+      "Tuesday": "5 P.M. to 10 P.M.",
+      "Wednesday": "5 P.M. to 10 P.M.",
+      "Thursday": "5 P.M. to 10 P.M.",
+      "Friday": "5 P.M. to 11 P.M.",
+      "Saturday": "5 P.M. to 11 P.M.",
+      "Sunday": "5 P.M. to 10 P.M."
     },
     "reviews": [{
         "name": "Steve",
@@ -372,13 +372,13 @@
     },
     "cuisine_type": "Mexican",
     "operating_hours": {
-      "Monday": "5:00 pm - 12:00 am",
-      "Tuesday": "5:00 pm - 12:00 am",
-      "Wednesday": "5:00 pm - 12:00 am",
-      "Thursday": "5:00 pm - 12:00 am",
-      "Friday": "5:00 pm - 12:00 am",
-      "Saturday": "11:00 am - 12:00 am",
-      "Sunday": "11:00 am - 12:00 am"
+      "Monday": "5 P.M. to 12 A.M.",
+      "Tuesday": "5 P.M. to 12 A.M.",
+      "Wednesday": "5 P.M. to 12 A.M.",
+      "Thursday": "5 P.M. to 12 A.M.",
+      "Friday": "5 P.M. to 12 A.M.",
+      "Saturday": "11 A.M. to 12 A.M.",
+      "Sunday": "11 A.M. to 12 A.M."
     },
     "reviews": [{
         "name": "Steve",
