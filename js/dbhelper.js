@@ -154,6 +154,38 @@ class DBHelper {
   }
 
   /**
+   * Restaurant srcset URL.
+   */
+  static srcsetUrlForRestaurant(restaurant, suffix, size) {
+    return (`/img/scaled/${restaurant.id}${suffix} ${size}`);
+  }
+
+  /**
+   * Restaurant srcset.
+   */
+  static generateSrcset(restaurant, viewportMap, image) {
+    let srcsets = [];
+    let sizes = [];
+
+    for (const viewport of viewportMap) {
+      const size = DBHelper.sizeAttribute(viewport.media, viewport.slot);
+      const srcset = DBHelper.srcsetUrlForRestaurant(restaurant, viewport.suffix, viewport.size);
+      srcsets.push(srcset)
+      sizes.push(size)
+    }
+
+    image.srcset = srcsets.join();
+    image.sizes = sizes.join();
+  }
+
+  /**
+   * Restaurant size attribute.
+   */
+  static sizeAttribute(media, slot) {
+    return (`${media} ${slot}`);
+  }
+
+  /**
    * Map marker for a restaurant.
    */
   static mapMarkerForRestaurant(restaurant, map) {
@@ -162,8 +194,8 @@ class DBHelper {
       title: restaurant.name,
       url: DBHelper.urlForRestaurant(restaurant),
       map: map,
-      animation: google.maps.Animation.DROP}
-    );
+      animation: google.maps.Animation.DROP
+    });
     return marker;
   }
 

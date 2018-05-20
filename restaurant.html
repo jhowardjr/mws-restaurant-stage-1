@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+  <meta charset="UTF-8">
+  <meta content='width=device-width, initial-scale=1.0, user-scalable=1' name='viewport' />
   <!-- Normalize.css for better cross-browser consistency -->
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
   <!-- Main CSS file -->
@@ -9,16 +11,20 @@
   <title>Restaurant Info</title>
 </head>
 
-<body class="inside">
+<body>
   <!-- Beginning header -->
   <header>
     <!-- Beginning nav -->
     <nav>
-      <h1><a href="/">Restaurant Reviews</a></h1>
+      <h1>
+        <a href="/">Restaurant Reviews</a>
+      </h1>
     </nav>
     <!-- Beginning breadcrumb -->
-    <ul id="breadcrumb" >
-      <li><a href="/">Home</a></li>
+    <ul id="breadcrumb">
+      <li>
+        <a href="/">Return to Restaurants</a>
+      </li>
     </ul>
     <!-- End breadcrumb -->
     <!-- End nav -->
@@ -29,29 +35,41 @@
   <main id="maincontent">
     <!-- Beginning map -->
     <section id="map-container">
-      <div id="map"></div>
+      <div id="map" aria-hidden="true"></div>
     </section>
     <!-- End map -->
-    <!-- Beginning restaurant -->
-    <section id="restaurant-container">
-      <h1 id="restaurant-name"></h1>
-      <img id="restaurant-img">
-      <p id="restaurant-cuisine"></p>
-      <p id="restaurant-address"></p>
-      <table id="restaurant-hours"></table>
+    <section id="restaurant-main-container" class="flex-direction-row">
+      <!-- Beginning restaurant -->
+      <div class="row">
+        <section id="restaurant-container">
+
+          <h2 id="restaurant-name"></h2>
+          <img id="restaurant-img">
+          <p id="restaurant-cuisine"></p>
+          <p id="restaurant-address"></p>
+          <table id="restaurant-hours"></table>
+        </section>
+      </div>
+      <!-- end restaurant -->
+      <!-- Beginning reviews -->
+      <div class="row">
+        <section id="reviews-container">
+          <div id="reviews-list-desc" hidden>List of Reviews</div>
+          <ul id="reviews-list" aria-labelledby="reviews-list-desc"></ul>
+
+        </section>
+      </div>
+      <!-- End reviews -->
     </section>
-    <!-- end restaurant -->
-    <!-- Beginning reviews -->
-    <section id="reviews-container">
-      <ul id="reviews-list"></ul>
-    </section>
-    <!-- End reviews -->
   </main>
   <!-- End main -->
 
   <!-- Beginning footer -->
   <footer id="footer">
-    Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
+    Copyright (c) 2017
+    <a href="/">
+      <strong>Restaurant Reviews</strong>
+    </a> All Rights Reserved.
   </footer>
   <!-- End footer -->
 
@@ -61,9 +79,14 @@
   <!-- Main javascript file -->
   <script type="text/javascript" src="js/restaurant_info.js"></script>
   <!-- Google Maps -->
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_tKbW6A5pQ-eupxI56myUnHLqYCzOjKo&libraries=places&callback=initMap"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASLOeVX1dUY7y2bGIUfA8_pfT_n6nDYUg&libraries=places&callback=initMap"></script>
   <!-- End scripts -->
-
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('sw.js');
+    }
+  </script>
 </body>
 
 </html>

@@ -137,13 +137,49 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
  */
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
-
   const image = document.createElement('img');
-  image.className = 'restaurant-img';
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.className = 'restaurant-img';
+
+  const viewportMap = [{
+      media: '(max-width: 320px)',
+      suffix: '_280.jpg',
+      size: '280w',
+      slot: '236px'
+    },
+    {
+      media: '(min-width: 320px)',
+      suffix: '_335.jpg',
+      size: '335w',
+      slot: '291px'
+    },
+    {
+      media: '(min-width: 375px)',
+      suffix: '_385.jpg',
+      size: '385w',
+      slot: '341px'
+    },
+    {
+      media: '(min-width: 425px)',
+      suffix: '_432.jpg',
+      size: '432w',
+      slot: '290px'
+    },
+    {
+      media: '(min-width: 768px)',
+      suffix: '_432.jpg',
+      size: '432w',
+      slot: '290px'
+    }
+  ];
+
+  DBHelper.generateSrcset(restaurant, viewportMap, image);
+
+  image.alt = restaurant.alt;
+
   li.append(image);
 
-  const name = document.createElement('h1');
+  const name = document.createElement('h3');
   name.innerHTML = restaurant.name;
   li.append(name);
 
@@ -155,9 +191,16 @@ createRestaurantHTML = (restaurant) => {
   address.innerHTML = restaurant.address;
   li.append(address);
 
+  const label = document.createElement('div');
+  label.id = `restaurant-label-${restaurant.id}`;
+  label.hidden = true;
+  label.innerHTML = `View details about ${restaurant.name}`;
+  li.append(label)
+
   const more = document.createElement('a');
-  more.innerHTML = 'View Details';
+  more.innerHTML = '<span aria-hidden="true">View Details</span>';
   more.href = DBHelper.urlForRestaurant(restaurant);
+  more.setAttribute('aria-labelledby', `restaurant-label-${restaurant.id}`);
   li.append(more)
 
   return li
