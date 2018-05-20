@@ -1,3 +1,4 @@
+// Referenced https://developers.google.com/web/ilt/pwa/caching-files-with-service-worker and the lessons
 var cacheName = 'mws-restaurant-v8';
 
 self.addEventListener('install', function (event) {
