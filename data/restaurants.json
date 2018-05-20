@@ -17,8 +17,8 @@
       "Wednesday": "5:30 P.M. to 12 A.M.",
       "Thursday": "5:30 P.M. to 12 A.M.",
       "Friday": "5:30 P.M. to 12 A.M.",
-      "Saturday": "12 P.M. to 4 pm, 5:30 P.M. to 12 A.M.",
-      "Sunday": "12 P.M. to 4 pm, 5:30 P.M. to 11 P.M."
+      "Saturday": "12 P.M. to 4 P.M., 5:30 P.M. to 12 A.M.",
+      "Sunday": "12 P.M. to 4 P.M., 5:30 P.M. to 11 P.M."
     },
     "reviews": [{
         "name": "Steve",
@@ -58,7 +58,7 @@
       "Thursday": "5:30 P.M. to 11 P.M.",
       "Friday": "5:30 P.M. to 11 P.M.",
       "Saturday": "5 P.M. to 11:30 P.M.",
-      "Sunday": "12 P.M. to 3 pm, 5 P.M. to 11 P.M."
+      "Sunday": "12 P.M. to 3 P.M., 5 P.M. to 11 P.M."
     },
     "reviews": [{
         "name": "Steph",
@@ -292,13 +292,13 @@
     },
     "cuisine_type": "American",
     "operating_hours": {
-      "Monday": "11:30 A.M. to 3 pm, 5:30 P.M. to 11 P.M.",
-      "Tuesday": "11:30 A.M. to 3 pm, 5:30 P.M. to 11 P.M.",
-      "Wednesday": "11:30 A.M. to 3 pm, 5:30 P.M. to 11 P.M.",
-      "Thursday": "11:30 A.M. to 3 pm, 5:30 P.M. to 11 P.M.",
-      "Friday": "11:30 A.M. to 3 pm, 5:30 P.M. to 11:30 P.M.",
-      "Saturday": "10 A.M. to 3 pm, 5:30 P.M. to 11:30 P.M.",
-      "Sunday": "10 A.M. to 3 pm, 5:30 P.M. to 11 P.M."
+      "Monday": "11:30 A.M. to 3 P.M., 5:30 P.M. to 11 P.M.",
+      "Tuesday": "11:30 A.M. to 3 P.M., 5:30 P.M. to 11 P.M.",
+      "Wednesday": "11:30 A.M. to 3 P.M., 5:30 P.M. to 11 P.M.",
+      "Thursday": "11:30 A.M. to 3 P.M., 5:30 P.M. to 11 P.M.",
+      "Friday": "11:30 A.M. to 3 P.M., 5:30 P.M. to 11:30 P.M.",
+      "Saturday": "10 A.M. to 3 P.M., 5:30 P.M. to 11:30 P.M.",
+      "Sunday": "10 A.M. to 3 P.M., 5:30 P.M. to 11 P.M."
     },
     "reviews": [{
         "name": "Steve",

@@ -38,7 +38,7 @@
       <div id="map" aria-hidden="true"></div>
     </section>
     <!-- End map -->
-    <section id="restaurant-main-container">
+    <section id="restaurant-main-container" class="flex-direction-row">
       <!-- Beginning restaurant -->
       <div class="row">
         <section id="restaurant-container">
@@ -81,7 +81,12 @@
   <!-- Google Maps -->
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASLOeVX1dUY7y2bGIUfA8_pfT_n6nDYUg&libraries=places&callback=initMap"></script>
   <!-- End scripts -->
-
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('sw.js');
+    }
+  </script>
 </body>
 
 </html>

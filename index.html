@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta content='width=device-width, initial-scale=1.0, user-scalable=1' name='viewport' />
+  <meta name="description" content="Resturant reviews in the New York Area.">
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
   <link rel="stylesheet" href="css/styles.css">
   <title>Restaurant Reviews</title>
@@ -46,6 +47,7 @@
       <div id="map" aria-hidden="true" tabindex="-1"></div>
     </section>
     <section id="restaurant-main-container">
+      <h2 class="list-header">List of Restaurants</h2>
       <ul id="restaurants-list"></ul>
     </section>
   </main>
@@ -60,7 +62,12 @@
   <script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>
   <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASLOeVX1dUY7y2bGIUfA8_pfT_n6nDYUg&libraries=places&callback=initMap"></script>
-
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('sw.js');
+    }
+  </script>
 </body>
 
 </html>

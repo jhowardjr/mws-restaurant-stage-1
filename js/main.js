@@ -167,24 +167,14 @@ createRestaurantHTML = (restaurant) => {
     },
     {
       media: '(min-width: 768px)',
-      suffix: '_640.jpg',
-      size: '640w',
+      suffix: '_432.jpg',
+      size: '432w',
       slot: '290px'
     }
   ];
 
-  let srcsets = [];
-  let sizes = [];
+  DBHelper.generateSrcset(restaurant, viewportMap, image);
 
-  for (const viewport of viewportMap) {
-    const size = DBHelper.sizeAttribute(viewport.media, viewport.slot);
-    const srcset = DBHelper.srcsetUrlForRestaurant(restaurant, viewport.suffix, viewport.size);
-    srcsets.push(srcset)
-    sizes.push(size)
-  }
-
-  image.srcset = srcsets.join();
-  image.sizes = sizes.join();
   image.alt = restaurant.alt;
 
   li.append(image);

@@ -161,6 +161,24 @@ class DBHelper {
   }
 
   /**
+   * Restaurant srcset.
+   */
+  static generateSrcset(restaurant, viewportMap, image) {
+    let srcsets = [];
+    let sizes = [];
+
+    for (const viewport of viewportMap) {
+      const size = DBHelper.sizeAttribute(viewport.media, viewport.slot);
+      const srcset = DBHelper.srcsetUrlForRestaurant(restaurant, viewport.suffix, viewport.size);
+      srcsets.push(srcset)
+      sizes.push(size)
+    }
+
+    image.srcset = srcsets.join();
+    image.sizes = sizes.join();
+  }
+
+  /**
    * Restaurant size attribute.
    */
   static sizeAttribute(media, slot) {
