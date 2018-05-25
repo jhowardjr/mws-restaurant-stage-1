@@ -88,9 +88,6 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   ];
 
   DBHelper.generateSrcset(restaurant, viewportMap, image);
-
-  image.alt = restaurant.alt;
-
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
 

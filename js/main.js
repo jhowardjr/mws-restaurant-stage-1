@@ -174,9 +174,6 @@ createRestaurantHTML = (restaurant) => {
   ];
 
   DBHelper.generateSrcset(restaurant, viewportMap, image);
-
-  image.alt = restaurant.alt;
-
   li.append(image);
 
   const name = document.createElement('h3');
