@@ -13,5 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Accessibilty 
 - Service Worker for offline access
 
-[Unreleased]: https://github.com/jhowardjr/mws-restaurant-stage-1/compare/7faf9bb...v1.0.0
+[Unreleased]: https://github.com/jhowardjr/mws-restaurant-stage-1/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/jhowardjr/mws-restaurant-stage-1/compare/7faf9bb...v1.0.0
+
 
