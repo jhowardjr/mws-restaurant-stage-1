@@ -4,6 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta content='width=device-width, initial-scale=1.0, user-scalable=1' name='viewport' />
+  <meta name="theme-color" content="#AA2E00" />
+  <link rel="manifest" href="/manifest.json">
   <!-- Normalize.css for better cross-browser consistency -->
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
   <!-- Main CSS file -->
@@ -74,14 +76,12 @@
   <!-- End footer -->
 
   <!-- Beginning scripts -->
-  <!-- Database helpers -->
-  <script type="text/javascript" src="js/dbhelper.js"></script>
   <!-- Main javascript file -->
-  <script type="text/javascript" src="js/restaurant_info.js"></script>
+  <script type="application/javascript" src="js/restaurant_info.min.js"></script>
   <!-- Google Maps -->
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASLOeVX1dUY7y2bGIUfA8_pfT_n6nDYUg&libraries=places&callback=initMap"></script>
   <!-- End scripts -->
-  <script>
+  <script type="application/javascript">
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker
         .register('sw.js');

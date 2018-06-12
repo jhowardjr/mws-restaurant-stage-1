@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta content='width=device-width, initial-scale=1.0, user-scalable=1' name='viewport' />
   <meta name="description" content="Resturant reviews in the New York Area.">
+  <meta name="theme-color" content="#AA2E00" />
+  <link rel="manifest" href="/manifest.json">
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
   <link rel="stylesheet" href="css/styles.css">
   <title>Restaurant Reviews</title>
@@ -58,11 +60,9 @@
       <strong>Restaurant Reviews</strong>
     </a> All Rights Reserved.
   </footer>
-
-  <script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>
-  <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
+  <script type="application/javascript" charset="utf-8" src="js/main.min.js"></script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASLOeVX1dUY7y2bGIUfA8_pfT_n6nDYUg&libraries=places&callback=initMap"></script>
-  <script>
+  <script type="application/javascript">
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker
         .register('sw.js');
