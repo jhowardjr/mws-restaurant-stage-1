@@ -20,13 +20,15 @@ This project incrementally builds upon an existing resturant review application 
 
 ``` gulp ```
 
+* Note: This project requires a [Server](https://github.com/udacity/mws-restaurant-stage-2)
+
 5. View the project in a browser at [http://localhost:3000](http://localhost:3000)
 
 ### Prerequisites
 
 * [node.js](https://nodejs.org/en/)
 * [gulp.js](https://gulpjs.com/)
-
+* [Server](https://github.com/udacity/mws-restaurant-stage-2)
 
 ## Authors
 
