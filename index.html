@@ -15,9 +15,11 @@
 <body>
   <header>
     <nav>
-      <h1>
-        <a href="/">Restaurant Reviews</a>
-      </h1>
+      <div id="home-container">
+        <h1>
+          <a href="/">Restaurant Reviews</a>
+        </h1>
+      </div>
     </nav>
     <div class="filter-options">
       <h2>Filter Restaurants</h2>
@@ -46,7 +48,7 @@
 
   <main id="maincontent">
     <section id="map-container">
-      <div id="map" aria-hidden="true" tabindex="-1"></div>
+      <div id="map" aria-label="location" role="application" tabindex="-1"></div>
     </section>
     <section id="restaurant-main-container">
       <h2 class="list-header">List of Restaurants</h2>

@@ -98,18 +98,18 @@ section {
 
 /* ====================== Navigation ====================== */
 
-nav {
+#home-container {
   width: 100%;
   background-color: #252831;
   text-align: center;
 }
 
-nav h1 {
+#home-container h1 {
   margin: auto;
   padding: 20px;
 }
 
-nav h1 a {
+#home-container h1 a {
   color: #fff;
   font-size: 19px;
   font-weight: 200;

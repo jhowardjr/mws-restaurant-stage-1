@@ -16,18 +16,22 @@
 <body>
   <!-- Beginning header -->
   <header>
-    <!-- Beginning nav -->
-    <nav>
+
+    <div id="home-container">
       <h1>
         <a href="/">Restaurant Reviews</a>
       </h1>
-    </nav>
+    </div>
+
+    <!-- Beginning nav -->
     <!-- Beginning breadcrumb -->
-    <ul id="breadcrumb">
-      <li>
-        <a href="/">Return to Restaurants</a>
-      </li>
-    </ul>
+    <nav id="breadcrumb" role="navigation" aria-label="Breadcrumb">
+      <ul id="breadcrumb-nav">
+        <li>
+          <a href="/">Return to Restaurants</a>
+        </li>
+      </ul>
+    </nav>
     <!-- End breadcrumb -->
     <!-- End nav -->
   </header>
@@ -37,7 +41,7 @@
   <main id="maincontent">
     <!-- Beginning map -->
     <section id="map-container">
-      <div id="map" aria-hidden="true"></div>
+      <div id="map" aria-label="location" role="application" tabindex="-1"></div>
     </section>
     <!-- End map -->
     <section id="restaurant-main-container" class="flex-direction-row">
