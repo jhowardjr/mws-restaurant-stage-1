@@ -131,6 +131,30 @@ const fillRestaurantsHTML = (restaurants = self.restaurants) => {
  */
 const createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
+
+  const icon = document.createElement('i');
+  let favoriteClassname = 'far';
+
+  if (restaurant.is_favorite) {
+    favoriteClassname = 'fas';
+  }
+
+  icon.className = `${favoriteClassname} fa-star fa-2x`;
+
+  const button = document.createElement('button');
+  button.className = 'favorite-button';
+  button.onclick = (e) => {
+    if (icon.classList.contains('far')) {
+      icon.classList.replace('far', 'fas');
+    } else {
+      icon.classList.replace('fas', 'far');
+    }
+  };
+
+  button.append(icon);
+
+  li.append(button);
+
   const image = document.createElement('img');
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
   image.className = 'restaurant-img';

@@ -263,6 +263,18 @@ section {
   padding: 20px;
 }
 
+#restaurants-list {
+  .favorite-button {
+    position: absolute;
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    right: 0;
+    margin-right: 27px;
+    padding: 10px;
+  }
+}
+
 /* ====================== Restaurant Details ====================== */
 
 #restaurant-name,
@@ -370,6 +382,7 @@ section {
   }
   #restaurants-list li {
     max-width: 290px;
+    position: relative;
   }
   #restaurant-container {
     border-bottom: none;

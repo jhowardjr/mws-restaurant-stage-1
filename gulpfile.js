@@ -138,3 +138,5 @@ gulp.task('images', function () {
 });
 
 gulp.task('default', ['copy', 'sass', 'js', 'images', 'critical', 'browser-sync'], function () {})
+
+gulp.task('sync', ['copy', 'sass', 'js', 'images', 'critical'], function () {})
