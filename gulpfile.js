@@ -21,10 +21,13 @@ gulp.task('copy', function () {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('sass', function () {
+gulp.task('sass', function (done) {
     gulp.src('./_scss/**/*.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('dist/css'));
+
+    browserSync.reload();
+    done();
 });
 
 gulp.task('critical', function () {
@@ -51,8 +54,8 @@ gulp.task('critical', function () {
     });
 });
 
-gulp.task('js', function () {
-    gulp.src(['_js/dbhelper.js', '_js/main.js'])
+gulp.task('js', function (done) {
+    gulp.src(['node_modules/idb/lib/idb.js', '_js/dbhelper.js', '_js/main.js'])
         .pipe(babel())
         .pipe(uglify())
         .pipe(concat('main.min.js'))
@@ -70,6 +73,8 @@ gulp.task('js', function () {
         .pipe(concat('sw.js'))
         .pipe(gulp.dest('dist'));
 
+    browserSync.reload();
+    done();
 });
 
 gulp.task('images', function () {
@@ -137,6 +142,10 @@ gulp.task('images', function () {
         .pipe(gulp.dest('dist/img'));
 });
 
-gulp.task('default', ['copy', 'sass', 'js', 'images', 'critical', 'browser-sync'], function () {})
+gulp.task('default', ['copy', 'sass', 'js', 'images', 'critical', 'browser-sync', 'watch'], function () {})
 
-gulp.task('sync', ['copy', 'sass', 'js', 'images', 'critical'], function () {})
+gulp.task('watch', function () {
+    gulp.watch('_scss/**/*.scss', ['sass']);
+    gulp.watch('_js/**/*.js', ['js']);
+    gulp.watch('*.html', ['copy', 'critical']);
+});

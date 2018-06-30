@@ -3,9 +3,6 @@ let restaurants,
   cuisines
 var map
 var markers = []
-
-
-
 /**
  * Fetch all neighborhoods and set their HTML.
  */
@@ -135,7 +132,7 @@ const createRestaurantHTML = (restaurant) => {
   const icon = document.createElement('i');
   let favoriteClassname = 'far';
 
-  if (restaurant.is_favorite) {
+  if (restaurant.is_favorite === 'true' || restaurant.is_favorite === true) {
     favoriteClassname = 'fas';
   }
 
@@ -144,11 +141,16 @@ const createRestaurantHTML = (restaurant) => {
   const button = document.createElement('button');
   button.className = 'favorite-button';
   button.onclick = (e) => {
-    if (icon.classList.contains('far')) {
-      icon.classList.replace('far', 'fas');
-    } else {
-      icon.classList.replace('fas', 'far');
-    }
+    const isUnselected = icon.classList.contains('far');
+
+    DBHelper.markFavoriteRestaurant(restaurant.id, isUnselected).then((response) => {
+      if (isUnselected) {
+        icon.classList.replace('far', 'fas');
+      } else {
+        icon.classList.replace('fas', 'far');
+      }
+      DBHelper.clearRestaurants();
+    });
   };
 
   button.append(icon);

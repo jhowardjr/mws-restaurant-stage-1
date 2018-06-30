@@ -13,6 +13,31 @@ class DBHelper {
   }
 
   /**
+   * Mark restaurant as favorite
+   */
+  static markFavoriteRestaurant(id, isFavorite = false) {
+    return fetch(
+      `${DBHelper.DATABASE_URL}/${id}/?is_favorite=${isFavorite}`, {
+        method: 'PUT'
+      }
+    ).then(response => response.json());
+  }
+
+  /**
+   * Clear restaurants JSON in idb.
+   */
+  static clearRestaurants() {
+    const dbName = 'resources';
+    const dbVersion = 1;
+    const JSONStore = 'json';
+    self.idb.open(dbName, dbVersion).then(function (db) {
+      const tx = db.transaction(JSONStore, "readwrite");
+      tx.objectStore(JSONStore).delete('restaurants');
+      return tx.complete;
+    })
+  }
+
+  /**
    * Fetch all restaurants.
    */
   static fetchRestaurants(callback) {
