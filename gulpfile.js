@@ -61,7 +61,7 @@ gulp.task('js', function (done) {
         .pipe(concat('main.min.js'))
         .pipe(gulp.dest('dist/js'));
 
-    gulp.src(['_js/dbhelper.js', '_js/restaurant_info.js'])
+    gulp.src(['node_modules/idb/lib/idb.js', '_js/dbhelper.js', '_js/restaurant_info.js'])
         .pipe(babel())
         .pipe(uglify())
         .pipe(concat('restaurant_info.min.js'))

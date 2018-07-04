@@ -4,12 +4,19 @@
 class DBHelper {
 
   /**
-   * Database URL.
-   * Change this to restaurants.json file location on your server.
+   * Database URL for resturants.
    */
   static get DATABASE_URL() {
     const port = 1337 // Change this to your server port
     return `http://localhost:${port}/restaurants`;
+  }
+
+  /**
+   * Database URL for reviews.
+   */
+  static get DATABASE_URL_REVIEWS() {
+    const port = 1337 // Change this to your server port
+    return `http://localhost:${port}/reviews`;
   }
 
   /**
@@ -19,6 +26,19 @@ class DBHelper {
     return fetch(
       `${DBHelper.DATABASE_URL}/${id}/?is_favorite=${isFavorite}`, {
         method: 'PUT'
+      }
+    ).then(response => response.json());
+  }
+
+  /**
+   * Submit a restaurant review
+   */
+  static submitRestaurantReview(review) {
+
+    return fetch(
+      `${DBHelper.DATABASE_URL_REVIEWS}`, {
+        method: 'POST',
+        body: JSON.stringify(review)
       }
     ).then(response => response.json());
   }
@@ -72,6 +92,17 @@ class DBHelper {
         }
       }
     });
+  }
+
+  /**
+   * Fetch restaurants reviews by id.
+   */
+  static fecthRestaurantReviewsById(id) {
+    return fetch(
+      `${DBHelper.DATABASE_URL_REVIEWS}/?restaurant_id=${id}`, {
+        method: 'GET'
+      }
+    ).then(response => response.json());
   }
 
   /**

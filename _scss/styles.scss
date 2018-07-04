@@ -347,6 +347,124 @@ section {
   color: #666;
 }
 
+/* ====================== Star Rating ====================== */
+
+// REFERENCED FROM https://www.w3.org/WAI/tutorials/forms/custom-controls/
+#star_rating i {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+#star_rating label,
+#star_rating output {
+  display: block;
+  float: left;
+  font-size: 2em;
+  height: 1.2em;
+  color: #036;
+  cursor: pointer;
+  /* Transparent border-bottom avoids jumping
+	   when a colored border is applied
+		 on :hover/:focus */
+  border-bottom: 2px solid transparent;
+}
+
+#star_rating output {
+  font-size: 1.5em;
+  padding: 0 1em;
+}
+
+#star_rating input:checked~label {
+  color: #999;
+}
+
+#star_rating input:checked+label {
+  color: #036;
+  border-bottom-color: #036;
+}
+
+#star_rating input:focus+label {
+  border-bottom-style: dotted;
+}
+
+#star_rating:hover input+label {
+  color: #036;
+}
+
+#star_rating input:hover~label,
+#star_rating input:focus~label,
+#star_rating input[id="star0"]+label {
+  color: #999;
+}
+
+#star_rating input:hover+label,
+#star_rating input:focus+label {
+  color: #036;
+}
+
+#star_rating input[id="star0"]:checked+label {
+  color: #ff2d21;
+}
+
+#star_rating [type="submit"] {
+  float: none;
+}
+
+#user_name {
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 18px;
+  line-height: 1.33333em;
+  line-height: 1.44em;
+  border: 0;
+  outline: none;
+  padding: 20px;
+  resize: none;
+  width: 100%;
+  min-height: 65px;
+  box-sizing: border-box;
+}
+
+#comments {
+  width: 100%;
+  font-size: 18px;
+  line-height: 1.33333em;
+  line-height: 1.44em;
+  border: 0;
+  outline: none;
+  padding: 20px;
+  resize: none;
+  width: 100%;
+  min-height: 258px;
+  box-sizing: border-box;
+}
+
+#reviews-form-bottom {
+  display: flex;
+  padding: 20px;
+  justify-content: space-between;
+  transform: translateY(-100%);
+  button {
+    background-color: #AA2E00;
+    color: #fff;
+    border: 0;
+    font-weight: 700;
+  }
+}
+
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
 /* ====================== Responsive Grid ====================== */
 
 @media only screen and (max-width: 320px) {

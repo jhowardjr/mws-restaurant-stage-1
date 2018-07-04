@@ -8,6 +8,8 @@
   <link rel="manifest" href="/manifest.json">
   <!-- Normalize.css for better cross-browser consistency -->
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
+  <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+    crossorigin="anonymous">
   <!-- Main CSS file -->
   <link rel="stylesheet" href="css/styles.css" type="text/css">
   <title>Restaurant Info</title>
@@ -62,8 +64,62 @@
         <section id="reviews-container">
           <div id="reviews-list-desc" hidden>List of Reviews</div>
           <ul id="reviews-list" aria-labelledby="reviews-list-desc"></ul>
+          <form id="reviews_form">
+            <div>
+              <div>
+                <label for="user_name" hidden>Username</label>
+                <input id="user_name" type="text" name="user_name" placeholder="Enter your name...">
+              </div>
+            </div>
+            <div>
+              <label for="comments" hidden>Comments</label>
+              <textarea id="comments" name="comments" placeholder="Enter your review..."></textarea>
+            </div>
+            <div id="reviews-form-bottom">
+              <!-- REFERENCED FROM https://www.w3.org/WAI/tutorials/forms/custom-controls/ -->
+              <div id="star_rating">
+                <input value="0" id="star0" checked type="radio" name="rating" class="visuallyhidden">
+                <label for="star0">
+                  <span class="visuallyhidden">0 Stars</span>
+                  <i class="fas fa-times"></i>
+                </label>
 
+                <input value="1" id="star1" type="radio" name="rating" class="visuallyhidden">
+                <label for="star1">
+                  <span class="visuallyhidden">1 Star</span>
+                  <i class="fas fa-star"></i>
+                </label>
+
+                <input value="2" id="star2" type="radio" name="rating" class="visuallyhidden">
+                <label for="star2">
+                  <span class="visuallyhidden">2 Stars</span>
+                  <i class="fas fa-star"></i>
+                </label>
+
+                <input value="3" id="star3" type="radio" name="rating" class="visuallyhidden">
+                <label for="star3">
+                  <span class="visuallyhidden">3 Stars</span>
+                  <i class="fas fa-star"></i>
+                </label>
+
+                <input value="4" id="star4" type="radio" name="rating" class="visuallyhidden">
+                <label for="star4">
+                  <span class="visuallyhidden">4 Stars</span>
+                  <i class="fas fa-star"></i>
+                </label>
+
+                <input value="5" id="star5" type="radio" name="rating" class="visuallyhidden">
+                <label for="star5">
+                  <span class="visuallyhidden">5 Stars</span>
+                  <i class="fas fa-star"></i>
+                </label>
+              </div>
+              <button type="submit" class="btn-small focusable">Submit A Review</button>
+            </div>
+
+          </form>
         </section>
+
       </div>
       <!-- End reviews -->
     </section>
