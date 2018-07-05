@@ -80,17 +80,19 @@ class DBHelper {
    */
   static fetchRestaurantById(id, callback) {
     // fetch all restaurants with proper error handling.
-    DBHelper.fetchRestaurants((error, restaurants) => {
-      if (error) {
-        callback(error, null);
-      } else {
-        const restaurant = restaurants.find(r => r.id == id);
-        if (restaurant) { // Got the restaurant
-          callback(null, restaurant);
-        } else { // Restaurant does not exist in the database
-          callback('Restaurant does not exist', null);
-        }
+    return fetch(
+      `${DBHelper.DATABASE_URL}/${id}`, {
+        method: 'GET'
       }
+    ).then(response => response.json()).then(restaurant => {
+
+      if (restaurant) { // Got the restaurant
+        callback(null, restaurant);
+      } else { // Restaurant does not exist in the database
+        callback('Restaurant does not exist', null);
+      }
+    }).catch(error => {
+      callback(error, null);
     });
   }
 

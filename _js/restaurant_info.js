@@ -126,7 +126,7 @@ const fillReviewForm = () => {
       DBHelper.submitRestaurantReview(review).then((response) => {
         review['createdAt'] = response.createdAt;
         fillReviewsHTML([review]);
-        DBHelper.clearRestaurants();
+        form.reset();
       });
     }
   });

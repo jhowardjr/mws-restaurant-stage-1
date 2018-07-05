@@ -59,22 +59,24 @@ self.addEventListener('fetch', function (event) {
                         // return from cache or fetch and store
                         return response || fetch(event.request).then(function (response) {
                             const clone = response.clone();
+                            if (event.request.method === 'GET') {
+                                if (isJSON(response)) {
+                                    // use idb api
+                                    idb.open(dbName, dbVersion).then(function (db) {
 
-                            if (isJSON(response)) {
-                                // use idb api
-                                idb.open(dbName, dbVersion).then(function (db) {
+                                        const tx = db.transaction(JSONStore, 'readwrite');
 
-                                    const tx = db.transaction(JSONStore, 'readwrite');
+                                        clone.json().then((body) => {
+                                            tx.objectStore(JSONStore).put(JSON.stringify(body), resource);
+                                        });
 
-                                    clone.json().then((body) => {
-                                        tx.objectStore(JSONStore).put(JSON.stringify(body), resource);
                                     });
 
-                                });
+                                } else {
+                                    // use cache api
+                                    cache.put(event.request, clone);
 
-                            } else {
-                                // use cache api
-                                cache.put(event.request, clone);
+                                }
 
                             }
 
