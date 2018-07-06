@@ -1,6 +1,8 @@
 let restaurant;
 var map;
 
+DBHelper.postReviews();
+
 /**
  * Initialize Google map, called from HTML.
  */
@@ -123,10 +125,21 @@ const fillReviewForm = () => {
     }];
 
     for (const review of reviews) {
-      DBHelper.submitRestaurantReview(review).then((response) => {
+      DBHelper.submitRestaurantReview(JSON.stringify(review)).then((response) => {
         review['createdAt'] = response.createdAt;
-        fillReviewsHTML([review]);
         form.reset();
+      }).catch(_ => {
+        const dbName = 'resources';
+        const dbVersion = 2;
+        const reviewStore = 'reviews';
+        self.idb.open(dbName, dbVersion).then(function (db) {
+          const tx = db.transaction(reviewStore, "readwrite");
+          const json = JSON.stringify(review);
+          tx.objectStore(reviewStore).put(json, btoa(json));
+          fillReviewsHTML([review]);
+          form.reset();
+          return tx.complete;
+        });
       });
     }
   });

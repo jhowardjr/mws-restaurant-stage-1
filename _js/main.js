@@ -243,4 +243,5 @@ const addMarkersToMap = (restaurants = self.restaurants) => {
 document.addEventListener('DOMContentLoaded', (event) => {
   fetchNeighborhoods();
   fetchCuisines();
+  DBHelper.postReviews();
 });

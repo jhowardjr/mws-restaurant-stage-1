@@ -38,9 +38,34 @@ class DBHelper {
     return fetch(
       `${DBHelper.DATABASE_URL_REVIEWS}`, {
         method: 'POST',
-        body: JSON.stringify(review)
+        body: review
       }
     ).then(response => response.json());
+  }
+
+  /**
+   * Post reviews when page is back online.
+   */
+  static postReviews() {
+    window.addEventListener('load', () => {
+      window.addEventListener('online', () => {
+        const dbName = 'resources';
+        const dbVersion = 2;
+        const reviewStore = 'reviews';
+        self.idb.open(dbName, dbVersion).then(function (db) {
+          const tx = db.transaction(reviewStore, 'readwrite');
+          tx.objectStore(reviewStore).getAll().then(reviews => {
+            for (const review of reviews) {
+              DBHelper.submitRestaurantReview(review).then(_ => {
+                const tx = db.transaction(reviewStore, 'readwrite');
+                tx.objectStore(reviewStore).delete(btoa(review));
+                return tx.complete;
+              });
+            }
+          });
+        });
+      })
+    });
   }
 
   /**
@@ -48,13 +73,13 @@ class DBHelper {
    */
   static clearRestaurants() {
     const dbName = 'resources';
-    const dbVersion = 1;
+    const dbVersion = 2;
     const JSONStore = 'json';
     self.idb.open(dbName, dbVersion).then(function (db) {
       const tx = db.transaction(JSONStore, "readwrite");
       tx.objectStore(JSONStore).delete('restaurants');
       return tx.complete;
-    })
+    });
   }
 
   /**

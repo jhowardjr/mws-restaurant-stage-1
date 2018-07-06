@@ -1,14 +1,17 @@
 // Referenced https://developers.google.com/web/ilt/pwa/caching-files-with-service-worker and the lessons
 const cacheName = 'mws-restaurant-v16';
 const dbName = 'resources';
-const dbVersion = 1;
+const dbVersion = 2;
 const JSONStore = 'json';
+const reviewStore = 'reviews';
 
 function createDB() {
     self.idb.open(dbName, dbVersion, function (upgradeDB) {
         switch (upgradeDB.oldVersion) {
             case 0:
                 upgradeDB.createObjectStore(JSONStore);
+            case 1:
+                upgradeDB.createObjectStore(reviewStore);
         }
     });
 }
@@ -77,7 +80,7 @@ self.addEventListener('fetch', function (event) {
                                     cache.put(event.request, clone);
 
                                 }
-
+                                
                             }
 
                             return response;
