@@ -68,7 +68,7 @@ self.addEventListener('fetch', function (event) {
                                     idb.open(dbName, dbVersion).then(function (db) {
 
                                         const tx = db.transaction(JSONStore, 'readwrite');
-
+                                    
                                         clone.json().then((body) => {
                                             tx.objectStore(JSONStore).put(JSON.stringify(body), resource);
                                         });

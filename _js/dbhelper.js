@@ -1,3 +1,8 @@
+const dbName = 'resources';
+const dbVersion = 2;
+const jsonStore = 'json';
+const reviewStore = 'reviews';
+
 /**
  * Common database helper functions.
  */
@@ -49,9 +54,6 @@ class DBHelper {
   static postReviews() {
     window.addEventListener('load', () => {
       window.addEventListener('online', () => {
-        const dbName = 'resources';
-        const dbVersion = 2;
-        const reviewStore = 'reviews';
         self.idb.open(dbName, dbVersion).then(function (db) {
           const tx = db.transaction(reviewStore, 'readwrite');
           tx.objectStore(reviewStore).getAll().then(reviews => {
@@ -69,12 +71,44 @@ class DBHelper {
   }
 
   /**
+   * Store restaurants reviews offline in idb.
+   */
+  static storeOffline(review) {
+    self.idb.open(dbName, dbVersion).then(function (db) {
+
+      const tx = db.transaction(reviewStore, "readwrite");
+      const json = JSON.stringify(review);
+      tx.objectStore(reviewStore).put(json, btoa(json));
+      return tx.complete;
+    });
+  }
+
+  /**
+   * Clear restaurants reviews JSON in idb.
+   */
+  static updateReviews(id, review) {
+
+    self.idb.open(dbName, dbVersion).then(function (db) {
+
+      const tx = db.transaction(jsonStore, 'readwrite');
+      const store = tx.objectStore(jsonStore);
+
+      (store.iterateKeyCursor || store.iterateCursor).call(store, cursor => {
+        if (!cursor) return;
+        if (cursor.key.includes(`restaurant_id=${id}`)) {
+          const tx = db.transaction(jsonStore, 'readwrite');
+          tx.objectStore(jsonStore).put(review, cursor.key);
+        }
+
+        cursor.continue();
+      });
+    });
+  }
+
+  /**
    * Clear restaurants JSON in idb.
    */
   static clearRestaurants() {
-    const dbName = 'resources';
-    const dbVersion = 2;
-    const JSONStore = 'json';
     self.idb.open(dbName, dbVersion).then(function (db) {
       const tx = db.transaction(JSONStore, "readwrite");
       tx.objectStore(JSONStore).delete('restaurants');

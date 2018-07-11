@@ -1,8 +1,5 @@
 let restaurant;
 var map;
-
-DBHelper.postReviews();
-
 /**
  * Initialize Google map, called from HTML.
  */
@@ -19,6 +16,7 @@ window.initMap = () => {
       fillBreadcrumb();
       DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
       DBHelper.fecthRestaurantReviewsById(self.restaurant.id).then(reviews => {
+        self.restaurant.reviews = reviews;
         fillReviewsHTML(reviews);
       });
     }
@@ -120,26 +118,24 @@ const fillReviewForm = () => {
       restaurant_id: getParameterByName('id'),
       rating: document.querySelector('#star_rating :checked ~ label span').textContent,
       name: formData.get('user_name'),
-      comments: formData.get('comments'),
-
+      comments: formData.get('comments')
+    
     }];
 
     for (const review of reviews) {
       DBHelper.submitRestaurantReview(JSON.stringify(review)).then((response) => {
         review['createdAt'] = response.createdAt;
-        form.reset();
+        self.restaurant.reviews.push(review);
+        DBHelper.updateReviews(review.restaurant_id, JSON.stringify(self.restaurant.reviews));
+        return response;
       }).catch(_ => {
-        const dbName = 'resources';
-        const dbVersion = 2;
-        const reviewStore = 'reviews';
-        self.idb.open(dbName, dbVersion).then(function (db) {
-          const tx = db.transaction(reviewStore, "readwrite");
-          const json = JSON.stringify(review);
-          tx.objectStore(reviewStore).put(json, btoa(json));
-          fillReviewsHTML([review]);
-          form.reset();
-          return tx.complete;
-        });
+        review['createdAt'] = new Date();
+        self.restaurant.reviews.push(review);
+        DBHelper.updateReviews(review.restaurant_id, JSON.stringify(self.restaurant.reviews));
+        DBHelper.storeOffline(review);
+      }).finally(_ => {
+        fillReviewsHTML([review]);
+        form.reset();
       });
     }
   });
@@ -253,3 +249,10 @@ const getParameterByName = (name, url) => {
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+
+/**
+ * On page load
+ */
+document.addEventListener('DOMContentLoaded', (event) => {
+  DBHelper.postReviews();
+});
