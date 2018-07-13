@@ -7,6 +7,7 @@ var map;
  */
 document.addEventListener('DOMContentLoaded', (event) => {
   initMap();
+  DBHelper.postReviews();
 });
 
 
@@ -267,10 +268,3 @@ const getParameterByName = (name, url) => {
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
-
-/**
- * On page load
- */
-document.addEventListener('DOMContentLoaded', (event) => {
-  DBHelper.postReviews();
-});
