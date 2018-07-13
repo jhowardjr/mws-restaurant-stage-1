@@ -161,29 +161,26 @@ const fillRestaurantsHTML = (restaurants = self.restaurants) => {
 const createRestaurantHTML = (restaurant, observer) => {
   const li = document.createElement('li');
 
-  const icon = document.createElement('span');
-  icon.setAttribute('data-selected', false);
-  icon.setAttribute('aria-hidden', true);
-  icon.innerHTML = '&#9734;';
-  icon.aria
+  const icon = document.createElement('i');
+  let favoriteClassname = 'far';
 
   if (restaurant.is_favorite === 'true' || restaurant.is_favorite === true) {
-    icon.setAttribute('data-selected', true);
-    icon.innerHTML = '&#9733;';
+    favoriteClassname = 'fas';
   }
+
+  icon.className = `${favoriteClassname} fa-star fa-2x`;
 
   const button = document.createElement('button');
   button.className = 'favorite-button';
   button.setAttribute('aria-label', `Make ${restaurant.name} a favorite.`);
   button.onclick = (e) => {
+    const isUnselected = icon.classList.contains('far');
 
-    DBHelper.markFavoriteRestaurant(restaurant.id, icon.dataset.selected).then((response) => {
-      if (icon.dataset.selected === 'true' || icon.dataset.selected === true) {
-        icon.innerHTML = '&#9734;';
-        icon.setAttribute('data-selected', false);
+    DBHelper.markFavoriteRestaurant(restaurant.id, isUnselected).then((response) => {
+      if (isUnselected) {
+        icon.classList.replace('far', 'fas');
       } else {
-        icon.innerHTML = '&#9733;';
-        icon.setAttribute('data-selected', true);
+        icon.classList.replace('fas', 'far');
       }
       DBHelper.clearRestaurants();
     });
