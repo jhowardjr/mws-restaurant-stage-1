@@ -6,12 +6,15 @@ var gulp = require('gulp'),
     critical = require('critical'),
     responsive = require('gulp-responsive'),
     imagemin = require('gulp-imagemin'),
-    sass = require('gulp-sass');
+    sass = require('gulp-sass'),
+    compress = require('compression');
 
 gulp.task('browser-sync', function () {
     browserSync.init({
         server: {
-            baseDir: "./dist"
+            baseDir: "./dist",
+            // Referenced https://github.com/BrowserSync/browser-sync/issues/451
+            middleware: [compress()]
         }
     });
 });

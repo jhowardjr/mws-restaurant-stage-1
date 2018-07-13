@@ -3,6 +3,17 @@ let restaurants,
   cuisines
 var map
 var markers = []
+
+/**
+ * Fetch neighborhoods and cuisines as soon as the page is loaded.
+ */
+document.addEventListener('DOMContentLoaded', (event) => {
+  initMap();
+  fetchNeighborhoods();
+  fetchCuisines();
+  DBHelper.postReviews();
+});
+
 /**
  * Fetch all neighborhoods and set their HTML.
  */
@@ -59,18 +70,23 @@ const fillCuisinesHTML = (cuisines = self.cuisines) => {
 }
 
 /**
- * Initialize Google map, called from HTML.
+ * Initialize leaflet map, called from HTML.
  */
-window.initMap = () => {
-  let loc = {
-    lat: 40.722216,
-    lng: -73.987501
-  };
-  self.map = new google.maps.Map(document.getElementById('map'), {
+const initMap = () => {
+  self.newMap = L.map('map', {
+    center: [40.722216, -73.987501],
     zoom: 12,
-    center: loc,
-    scrollwheel: false
+    scrollWheelZoom: false
   });
+  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.jpg70?access_token={mapboxToken}', {
+    mapboxToken: 'pk.eyJ1Ijoiamhvd2FyZGpyIiwiYSI6ImNqamo1dGRldTAwc2EzcG1wMGtxaGo2YmwifQ.B5-_5SqTfifNDritYACPUg',
+    maxZoom: 18,
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+      '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+      'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    id: 'mapbox.streets'
+  }).addTo(newMap);
+
   updateRestaurants();
 }
 
@@ -107,7 +123,9 @@ const resetRestaurants = (restaurants) => {
   ul.innerHTML = '';
 
   // Remove all map markers
-  self.markers.forEach(m => m.setMap(null));
+  if (self.markers) {
+    self.markers.forEach(marker => marker.remove());
+  }
   self.markers = [];
   self.restaurants = restaurants;
 }
@@ -117,37 +135,55 @@ const resetRestaurants = (restaurants) => {
  */
 const fillRestaurantsHTML = (restaurants = self.restaurants) => {
   const ul = document.getElementById('restaurants-list');
-  restaurants.forEach(restaurant => {
-    ul.append(createRestaurantHTML(restaurant));
+
+  // Referenced https://developers.google.com/web/fundamentals/performance/lazy-loading-guidance/images-and-video/
+  let lazyImageObserver = new IntersectionObserver(function (entries, observer) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        let lazyImage = entry.target;
+        lazyImage.src = lazyImage.dataset.src;
+        lazyImage.srcset = lazyImage.dataset.srcset;
+        lazyImageObserver.unobserve(lazyImage);
+      }
+    });
   });
+
+  restaurants.forEach(restaurant => {
+    ul.append(createRestaurantHTML(restaurant, lazyImageObserver));
+  });
+
   addMarkersToMap();
 }
 
 /**
  * Create restaurant HTML.
  */
-const createRestaurantHTML = (restaurant) => {
+const createRestaurantHTML = (restaurant, observer) => {
   const li = document.createElement('li');
 
-  const icon = document.createElement('i');
-  let favoriteClassname = 'far';
+  const icon = document.createElement('span');
+  icon.setAttribute('data-selected', false);
+  icon.setAttribute('aria-hidden', true);
+  icon.innerHTML = '&#9734;';
+  icon.aria
 
   if (restaurant.is_favorite === 'true' || restaurant.is_favorite === true) {
-    favoriteClassname = 'fas';
+    icon.setAttribute('data-selected', true);
+    icon.innerHTML = '&#9733;';
   }
-
-  icon.className = `${favoriteClassname} fa-star fa-2x`;
 
   const button = document.createElement('button');
   button.className = 'favorite-button';
+  button.setAttribute('aria-label', `Make ${restaurant.name} a favorite.`);
   button.onclick = (e) => {
-    const isUnselected = icon.classList.contains('far');
 
-    DBHelper.markFavoriteRestaurant(restaurant.id, isUnselected).then((response) => {
-      if (isUnselected) {
-        icon.classList.replace('far', 'fas');
+    DBHelper.markFavoriteRestaurant(restaurant.id, icon.dataset.selected).then((response) => {
+      if (icon.dataset.selected === 'true' || icon.dataset.selected === true) {
+        icon.innerHTML = '&#9734;';
+        icon.setAttribute('data-selected', false);
       } else {
-        icon.classList.replace('fas', 'far');
+        icon.innerHTML = '&#9733;';
+        icon.setAttribute('data-selected', true);
       }
       DBHelper.clearRestaurants();
     });
@@ -158,7 +194,7 @@ const createRestaurantHTML = (restaurant) => {
   li.append(button);
 
   const image = document.createElement('img');
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  // image.src = DBHelper.imageUrlForRestaurant(restaurant);
   image.className = 'restaurant-img';
 
   const viewportMap = [{
@@ -194,6 +230,8 @@ const createRestaurantHTML = (restaurant) => {
   ];
 
   DBHelper.generateSrcset(restaurant, viewportMap, image);
+
+  observer.observe(image);
   li.append(image);
 
   const name = document.createElement('h3');
@@ -229,19 +267,13 @@ const createRestaurantHTML = (restaurant) => {
 const addMarkersToMap = (restaurants = self.restaurants) => {
   restaurants.forEach(restaurant => {
     // Add marker to the map
-    const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.map);
-    google.maps.event.addListener(marker, 'click', () => {
-      window.location.href = marker.url
-    });
+    const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.newMap);
+    marker.on("click", onClick);
+
+    function onClick() {
+      window.location.href = marker.options.url;
+    }
     self.markers.push(marker);
   });
-}
 
-/**
- * Fetch neighborhoods and cuisines as soon as the page is loaded.
- */
-document.addEventListener('DOMContentLoaded', (event) => {
-  fetchNeighborhoods();
-  fetchCuisines();
-  DBHelper.postReviews();
-});
+}

@@ -1,6 +1,6 @@
 const dbName = 'resources';
 const dbVersion = 2;
-const jsonStore = 'json';
+const JSONStore = 'json';
 const reviewStore = 'reviews';
 
 /**
@@ -90,14 +90,14 @@ class DBHelper {
 
     self.idb.open(dbName, dbVersion).then(function (db) {
 
-      const tx = db.transaction(jsonStore, 'readwrite');
-      const store = tx.objectStore(jsonStore);
+      const tx = db.transaction(JSONStore, 'readwrite');
+      const store = tx.objectStore(JSONStore);
 
       (store.iterateKeyCursor || store.iterateCursor).call(store, cursor => {
         if (!cursor) return;
         if (cursor.key.includes(`restaurant_id=${id}`)) {
-          const tx = db.transaction(jsonStore, 'readwrite');
-          tx.objectStore(jsonStore).put(review, cursor.key);
+          const tx = db.transaction(JSONStore, 'readwrite');
+          tx.objectStore(JSONStore).put(review, cursor.key);
         }
 
         cursor.continue();
@@ -291,8 +291,8 @@ class DBHelper {
     }
 
     image.alt = restaurant.name;
-    image.src = DBHelper.imageUrlForRestaurant(restaurant);
-    image.srcset = srcsets.join();
+    image.setAttribute('data-src', DBHelper.imageUrlForRestaurant(restaurant));
+    image.setAttribute('data-srcset', srcsets.join());
     image.sizes = sizes.join();
   }
 
@@ -307,13 +307,13 @@ class DBHelper {
    * Map marker for a restaurant.
    */
   static mapMarkerForRestaurant(restaurant, map) {
-    const marker = new google.maps.Marker({
-      position: restaurant.latlng,
+    // https://leafletjs.com/reference-1.3.0.html#marker  
+    const marker = new L.marker([restaurant.latlng.lat, restaurant.latlng.lng], {
       title: restaurant.name,
-      url: DBHelper.urlForRestaurant(restaurant),
-      map: map,
-      animation: google.maps.Animation.DROP
-    });
+      alt: restaurant.name,
+      url: DBHelper.urlForRestaurant(restaurant)
+    })
+    marker.addTo(newMap);
     return marker;
   }
 
