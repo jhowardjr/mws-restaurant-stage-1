@@ -1,15 +1,119 @@
+const dbName = 'resources';
+const dbVersion = 2;
+const JSONStore = 'json';
+const reviewStore = 'reviews';
+
 /**
  * Common database helper functions.
  */
 class DBHelper {
 
   /**
-   * Database URL.
-   * Change this to restaurants.json file location on your server.
+   * Database URL for resturants.
    */
   static get DATABASE_URL() {
     const port = 1337 // Change this to your server port
     return `http://localhost:${port}/restaurants`;
+  }
+
+  /**
+   * Database URL for reviews.
+   */
+  static get DATABASE_URL_REVIEWS() {
+    const port = 1337 // Change this to your server port
+    return `http://localhost:${port}/reviews`;
+  }
+
+  /**
+   * Mark restaurant as favorite
+   */
+  static markFavoriteRestaurant(id, isFavorite = false) {
+    return fetch(
+      `${DBHelper.DATABASE_URL}/${id}/?is_favorite=${isFavorite}`, {
+        method: 'PUT'
+      }
+    ).then(response => response.json());
+  }
+
+  /**
+   * Submit a restaurant review
+   */
+  static submitRestaurantReview(review) {
+
+    return fetch(
+      `${DBHelper.DATABASE_URL_REVIEWS}`, {
+        method: 'POST',
+        body: review
+      }
+    ).then(response => response.json());
+  }
+
+  /**
+   * Post reviews when page is back online.
+   */
+  static postReviews() {
+    window.addEventListener('load', () => {
+      window.addEventListener('online', () => {
+        self.idb.open(dbName, dbVersion).then(function (db) {
+          const tx = db.transaction(reviewStore, 'readwrite');
+          tx.objectStore(reviewStore).getAll().then(reviews => {
+            for (const review of reviews) {
+              DBHelper.submitRestaurantReview(review).then(_ => {
+                const tx = db.transaction(reviewStore, 'readwrite');
+                tx.objectStore(reviewStore).delete(btoa(review));
+                return tx.complete;
+              });
+            }
+          });
+        });
+      })
+    });
+  }
+
+  /**
+   * Store restaurants reviews offline in idb.
+   */
+  static storeOffline(review) {
+    self.idb.open(dbName, dbVersion).then(function (db) {
+
+      const tx = db.transaction(reviewStore, "readwrite");
+      const json = JSON.stringify(review);
+      tx.objectStore(reviewStore).put(json, btoa(json));
+      return tx.complete;
+    });
+  }
+
+  /**
+   * Clear restaurants reviews JSON in idb.
+   */
+  static updateReviews(id, review) {
+
+    self.idb.open(dbName, dbVersion).then(function (db) {
+
+      const tx = db.transaction(JSONStore, 'readwrite');
+      const store = tx.objectStore(JSONStore);
+
+      (store.iterateKeyCursor || store.iterateCursor).call(store, cursor => {
+        if (!cursor) return;
+        if (cursor.key.includes(`restaurant_id=${id}`)) {
+          const tx = db.transaction(JSONStore, 'readwrite');
+          tx.objectStore(JSONStore).put(review, cursor.key);
+        }
+
+        cursor.continue();
+      });
+    });
+  }
+
+  /**
+   * Clear restaurants JSON in idb.
+   */
+  static clearRestaurants() {
+    self.idb.open(dbName, dbVersion).then(function (db) {
+      const tx = db.transaction(JSONStore, "readwrite");
+      tx.objectStore(JSONStore).delete('restaurants');
+      return tx.complete;
+    });
   }
 
   /**
@@ -35,18 +139,31 @@ class DBHelper {
    */
   static fetchRestaurantById(id, callback) {
     // fetch all restaurants with proper error handling.
-    DBHelper.fetchRestaurants((error, restaurants) => {
-      if (error) {
-        callback(error, null);
-      } else {
-        const restaurant = restaurants.find(r => r.id == id);
-        if (restaurant) { // Got the restaurant
-          callback(null, restaurant);
-        } else { // Restaurant does not exist in the database
-          callback('Restaurant does not exist', null);
-        }
+    return fetch(
+      `${DBHelper.DATABASE_URL}/${id}`, {
+        method: 'GET'
       }
+    ).then(response => response.json()).then(restaurant => {
+
+      if (restaurant) { // Got the restaurant
+        callback(null, restaurant);
+      } else { // Restaurant does not exist in the database
+        callback('Restaurant does not exist', null);
+      }
+    }).catch(error => {
+      callback(error, null);
     });
+  }
+
+  /**
+   * Fetch restaurants reviews by id.
+   */
+  static fecthRestaurantReviewsById(id) {
+    return fetch(
+      `${DBHelper.DATABASE_URL_REVIEWS}/?restaurant_id=${id}`, {
+        method: 'GET'
+      }
+    ).then(response => response.json());
   }
 
   /**
@@ -174,8 +291,8 @@ class DBHelper {
     }
 
     image.alt = restaurant.name;
-    image.src = DBHelper.imageUrlForRestaurant(restaurant);
-    image.srcset = srcsets.join();
+    image.setAttribute('data-src', DBHelper.imageUrlForRestaurant(restaurant));
+    image.setAttribute('data-srcset', srcsets.join());
     image.sizes = sizes.join();
   }
 
@@ -190,13 +307,13 @@ class DBHelper {
    * Map marker for a restaurant.
    */
   static mapMarkerForRestaurant(restaurant, map) {
-    const marker = new google.maps.Marker({
-      position: restaurant.latlng,
+    // https://leafletjs.com/reference-1.3.0.html#marker  
+    const marker = new L.marker([restaurant.latlng.lat, restaurant.latlng.lng], {
       title: restaurant.name,
-      url: DBHelper.urlForRestaurant(restaurant),
-      map: map,
-      animation: google.maps.Animation.DROP
-    });
+      alt: restaurant.name,
+      url: DBHelper.urlForRestaurant(restaurant)
+    })
+    marker.addTo(newMap);
     return marker;
   }
 

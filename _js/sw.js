@@ -1,14 +1,17 @@
 // Referenced https://developers.google.com/web/ilt/pwa/caching-files-with-service-worker and the lessons
 const cacheName = 'mws-restaurant-v16';
 const dbName = 'resources';
-const dbVersion = 1;
+const dbVersion = 2;
 const JSONStore = 'json';
+const reviewStore = 'reviews';
 
 function createDB() {
     self.idb.open(dbName, dbVersion, function (upgradeDB) {
         switch (upgradeDB.oldVersion) {
             case 0:
                 upgradeDB.createObjectStore(JSONStore);
+            case 1:
+                upgradeDB.createObjectStore(reviewStore);
         }
     });
 }
@@ -59,23 +62,25 @@ self.addEventListener('fetch', function (event) {
                         // return from cache or fetch and store
                         return response || fetch(event.request).then(function (response) {
                             const clone = response.clone();
+                            if (event.request.method === 'GET') {
+                                if (isJSON(response)) {
+                                    // use idb api
+                                    idb.open(dbName, dbVersion).then(function (db) {
 
-                            if (isJSON(response)) {
-                                // use idb api
-                                idb.open(dbName, dbVersion).then(function (db) {
+                                        const tx = db.transaction(JSONStore, 'readwrite');
+                                    
+                                        clone.json().then((body) => {
+                                            tx.objectStore(JSONStore).put(JSON.stringify(body), resource);
+                                        });
 
-                                    const tx = db.transaction(JSONStore, 'readwrite');
-
-                                    clone.json().then((body) => {
-                                        tx.objectStore(JSONStore).put(JSON.stringify(body), resource);
                                     });
 
-                                });
+                                } else {
+                                    // use cache api
+                                    cache.put(event.request, clone);
 
-                            } else {
-                                // use cache api
-                                cache.put(event.request, clone);
-
+                                }
+                                
                             }
 
                             return response;

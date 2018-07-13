@@ -6,12 +6,15 @@ var gulp = require('gulp'),
     critical = require('critical'),
     responsive = require('gulp-responsive'),
     imagemin = require('gulp-imagemin'),
-    sass = require('gulp-sass');
+    sass = require('gulp-sass'),
+    compress = require('compression');
 
 gulp.task('browser-sync', function () {
     browserSync.init({
         server: {
-            baseDir: "./dist"
+            baseDir: "./dist",
+            // Referenced https://github.com/BrowserSync/browser-sync/issues/451
+            middleware: [compress()]
         }
     });
 });
@@ -21,10 +24,13 @@ gulp.task('copy', function () {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('sass', function () {
+gulp.task('sass', function (done) {
     gulp.src('./_scss/**/*.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('dist/css'));
+
+    browserSync.reload();
+    done();
 });
 
 gulp.task('critical', function () {
@@ -51,14 +57,14 @@ gulp.task('critical', function () {
     });
 });
 
-gulp.task('js', function () {
-    gulp.src(['_js/dbhelper.js', '_js/main.js'])
+gulp.task('js', function (done) {
+    gulp.src(['node_modules/idb/lib/idb.js', '_js/dbhelper.js', '_js/main.js'])
         .pipe(babel())
         .pipe(uglify())
         .pipe(concat('main.min.js'))
         .pipe(gulp.dest('dist/js'));
 
-    gulp.src(['_js/dbhelper.js', '_js/restaurant_info.js'])
+    gulp.src(['node_modules/idb/lib/idb.js', '_js/dbhelper.js', '_js/restaurant_info.js'])
         .pipe(babel())
         .pipe(uglify())
         .pipe(concat('restaurant_info.min.js'))
@@ -70,6 +76,8 @@ gulp.task('js', function () {
         .pipe(concat('sw.js'))
         .pipe(gulp.dest('dist'));
 
+    browserSync.reload();
+    done();
 });
 
 gulp.task('images', function () {
@@ -137,4 +145,10 @@ gulp.task('images', function () {
         .pipe(gulp.dest('dist/img'));
 });
 
-gulp.task('default', ['copy', 'sass', 'js', 'images', 'critical', 'browser-sync'], function () {})
+gulp.task('default', ['copy', 'sass', 'js', 'images', 'critical', 'browser-sync', 'watch'], function () {})
+
+gulp.task('watch', function () {
+    gulp.watch('_scss/**/*.scss', ['sass']);
+    gulp.watch('_js/**/*.js', ['js']);
+    gulp.watch('*.html', ['copy', 'critical']);
+});
